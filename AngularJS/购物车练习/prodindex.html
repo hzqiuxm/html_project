@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../bootstrap3/css/bootstrap.css">
+
+    <style>
+        .ordercolor{
+            color: red;
+        }
+    </style>
+</head>
+<body ng-app="productModle">
+    <div ng-controller="productController" class="container">
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="search" placeholder="Search">
+            </div>
+        </form>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th ng-click="changeOrder('id')" ng-class="{dropup:order === ''}">
+                        产品编号
+                        <span  ng-class="{ordercolor:orderType ==='id'}" class="caret"></span>
+                    </th>
+                    <th>
+                        产品名称
+                    </th>
+                    <th ng-click="changeOrder('price')" ng-class="{dropup:order === ''}">
+                        产品价格
+                        <span ng-class="{ordercolor:orderType ==='price'}" class="caret"></span>
+                    </th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="item in Data | filter:search | orderBy :order + orderType">
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.price |currency:'￥'}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+<script type="text/javascript" src="../angular.js" ></script>
+<script type="text/javascript" src="./prodindex.js"  ></script>
+</body>
+</html>

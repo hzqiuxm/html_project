@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <style>
+       /* *{border: 1px solid red; height: 20px} 所有的html5结构标签本质上是一个div标签，只是有意义的*/
+
+       header{height: 150px;background: aqua}
+       div{margin-top: 10px;height: 700px}
+       section{height: 700px; width:70% ;background: aqua;float: left}
+       aside{height: 700px; width: 28%; background-color: aqua; float: right}
+       footer{height: 100px;background-color: aqua;clear: both;margin-top: 10px}
+       progress{background-color: darksalmon}
+    </style>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <header>
+        <p>这是一个header标签</p>
+    </header>
+    <div>
+        <section>
+            <progress max="100" value="0" id="pro"></progress>
+            <script>
+                var pro = document.getElementById("pro");
+                setInterval(function(){
+                    pro.value+=1;
+                },100)
+
+            </script>
+        </section>
+        <aside></aside>
+    </div>
+
+    <footer></footer>
+</body>
+</html>
