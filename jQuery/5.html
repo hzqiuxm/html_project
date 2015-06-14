@@ -15,6 +15,15 @@
             $(this).addClass("current").siblings().removeClass("current");
         })
 
+        $("#p1").bind("click",function(event,str1,str2) {
+            alert(str1 + ' '+ str2+"123");
+        });
+        $("#p1").trigger("click",["Hello","World"]);
+
+//        $("#p1").bind("click",function() {
+//            alert("hello!");
+//        });
+
     });
 </script>
 <body>
@@ -23,6 +32,8 @@
     <li>Hello2</li>
     <li>Hello3</li>
 </ul>
+
+<p id ="p1">dianji</p>
 
 <script type="text/javascript" src="./bootstrap3/js/bootstrap.js"></script>
 </body>
