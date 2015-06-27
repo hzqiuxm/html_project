@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>
+简介
+MongoDB的聚合框架，主要用来对集合中的文档进行变换和组合，从而对数据进行分析以加以利用。(用于查询和分析数据的一套东东)
+
+聚合框架的基本思路是：采用多个构件来创建一个管道，用于对一连串的文档进行处理。
+这些构件包括：筛选(filtering)、投影(projecting)、分组(grouping)、排序(sorting)、限制(limiting)和跳过(skipping)。
+
+使用聚合框架的方式
+db.集合.aggregate（构件1，构件2…）
+注意：由于聚合的结果要返回到客户端，因此聚合结果必须限制在16M以内，这是MongoDB支持的最大响应消息的大小。
+
+准备样例数据
+for(var i=0;i<100;i++){
+for(var j=0;j<4;j++){
+db.scores.insert({"studentId":"s"+i,"course":"课程"+j,"score":Math.random()*100});
+}
+}
+</div>
+<div>
+    示例要完成的功能
+找出考80分以上的课程门数最多的3个学生
+
+是用聚合框架来完成功能的步骤
+1：找到所有考了80分以上的学生，不区分课程
+{"$match":{"score":{$gte:80}}}
+2：将每个学生的名字投影出来
+{"$project":{"studentId":1}}
+3：对学生的名字排序，某个学生的名字出现一次，就给他加1
+{"$group":{"_id":"$studentId","count":{"$sum":1}}}
+4：对结果集按照count进行降序排列
+{"$sort":{"count":-1}}
+5：返回前面的3条数据
+{"$limit":3}
+最终执行的语句就是：
+db.scores.aggregate(
+{"$match":{"score":{$gte:80}}}
+, {"$project":{"studentId":1}}
+, {"$group":{"_id":"$studentId","count":{"$sum":1}}}
+, {"$sort":{"count":-1}}
+, {"$limit":3}
+)
+
+</div>
+<script>
+    var funcGetSelectText = function(){
+        var txt = '';
+        if(document.selection){
+            txt = document.selection.createRange().text;//ie
+        }else{
+            txt = document.getSelection();
+        }
+        return txt.toString();
+    }
+    var container = container || document;
+    container.onmouseup = function(){
+        var txt = funcGetSelectText();
+        if(txt)
+        {
+            alert(txt);
+        }
+    }
+</script>
+</body>
+
+</html>
