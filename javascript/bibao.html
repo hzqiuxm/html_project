@@ -3,9 +3,11 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script type="application/javascript" src="test.js"></script>
 </head>
 <body>
 <script>
+//    "use strict";
     function a(){
         var i = 1;
         return function(){
@@ -15,6 +17,37 @@
     var c = a();
     c();
 
+
+    var a= [];
+    for (var i=0; i<10; i++) {
+
+        var c = i;
+        a[i] = function(){
+            console.log(c);
+        }
+    }
+
+    a[6]();
+
+
+    //    "use strict";
+        var a = 1;
+        eval('var a = 2');
+        console.log(a);
+
+    var x = 1, y=z=0;
+
+    function add(n) {
+        n = n+1;
+        return n;
+    }
+    y = add(x);
+    function add(n) {
+        n = n + 3;
+    }
+    z = add(x);
+
+    console.log(x,y,z);
 
 </script>
 </body>
