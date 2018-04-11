@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>vue体验课程3</title>
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+
+    <style>
+        .class1{
+            background: #444;
+            color: #eee;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div id="app">
+    <!--使用 v-html 指令用于输出 html 代码-->
+    <div v-html="message"></div>
+    <div>{{message}}</div>
+
+    <!--指令是带有 v- 前缀的特殊属性-->
+    <!--HTML 属性中的值应使用 v-bind 指令-->
+    <label for="r1">修改颜色</label>
+    <input type="checkbox" v-model="class1" id="r1">
+    <br><br>
+    <div v-bind:class="{'class1': class1}">
+        directiva v-bind:class
+    </div>
+
+    <!--Vue.js 都提供了完全的 JavaScript 表达式支持。?-->
+    {{5+5}}<br>
+    {{ ok ? 'YES' : 'NO' }}<br>
+    {{ message.split('').reverse().join('') }}
+    <div v-bind:id="'list-' + id">菜鸟教程</div>
+
+    <!--v-if 指令将根据表达式 seen 的值(true 或 false )来决定是否插入 p 元素-->
+    <p v-if="seen">现在你看到我了</p>
+
+    <!--响应地更新 HTML 属性-->
+    <pre><a v-bind:href="url">菜鸟教程</a></pre>
+
+    <!--v-on 指令，它用于监听 DOM 事件-->
+    <button v-on:click="reverseMessage">反转字符串</button>
+
+    <!--在 input 输入框中我们可以使用 v-model 指令来实现双向数据绑定：?-->
+    <p>{{ message2 }}</p>
+    <input v-model="message2">
+
+
+    <!-- 过滤器由"管道符"指示,过滤器函数接受表达式的值作为第一个参数-->
+    {{ message2 | capitalize }}
+
+    <!--v-bind 缩写-->
+    <!-- 完整语法 -->
+    <a v-bind:href="url"></a>
+    <!-- 缩写 -->
+    <a :href="url"></a>
+
+    <!--v-on 缩写-->
+    <!-- 完整语法 -->
+    <a v-on:click="doSomething"></a>
+    <!-- 缩写 -->
+    <a @click="doSomething"></a>
+
+    <!--当我们给一个比如 props 中，或者 data 中被观测的对象添加一个新的属性的时候，不能直接添加，必须使用 Vue.set 方法。-->
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: '<h1>菜鸟教程</h1>', //注意这里是单引号
+            class1: false,
+            ok: true,
+            message: 'RUNOOB',
+            id : 1,
+            seen: true,
+            url: 'http://it.hzqiuxm.com',
+            target:'_blank',
+            message2: 'Runoob!'
+        },
+        methods: {
+            reverseMessage: function () {
+                this.message2 = this.message2.split('').reverse().join('')
+            }
+        },
+        filters: {
+            capitalize: function (value) {
+                if (!value) return ''
+                value = value.toString()
+                return value.charAt(0).toUpperCase() + value.slice(1)
+            }
+        }
+    })
+</script>
+
+
+</body>
+</html>
